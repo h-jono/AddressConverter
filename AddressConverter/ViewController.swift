@@ -7,8 +7,16 @@
 
 import UIKit
 import MapKit
+import FloatingPanel
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelControllerDelegate, XMLParserDelegate {
+
+    var fpc: FloatingPanelController!
+
+    @IBOutlet weak var addressInput: UITextField!
+    @IBOutlet weak var mapView: MKMapView!
+
+    let resultAddressVC = ResultAddressViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,26 +27,30 @@ class ViewController: UIViewController, UITextFieldDelegate {
         addressInput.backgroundColor = UIColor.white
         addressInput.layer.borderWidth = 0.25
         addressInput.layer.borderColor = UIColor.black.withAlphaComponent(0.25).cgColor
-        addressInput.placeholder = " 住所を入力して下さい"
-        // アイコンの設定
+        addressInput.placeholder = " 日本語住所を入力して下さい"
         addressInput.leftViewMode = .always
         let imageView = UIImageView()
         let image = UIImage(systemName: "magnifyingglass")
         imageView.image = image
         imageView.tintColor = .gray
         addressInput.leftView = imageView
-
+        // ハーフモーダルの設定
+        fpc = FloatingPanelController(delegate: self)
+        fpc.layout = CustomFloatingPanelLayout()
+        fpc.set(contentViewController: resultAddressVC)
+        fpc.addPanel(toParent: self)
     }
-
-    @IBOutlet weak var addressInput: UITextField!
-    @IBOutlet weak var mapView: MKMapView!
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // キーボードを閉じる
         textField.resignFirstResponder()
-        //入力された文字をデバックエリアに表示
+
         if let searchKey = textField.text {
-            print(searchKey)
+            //入力された文字をモーダルに表示
+            resultAddressVC.resultAddressText.text = searchKey
+            resultAddressVC.resultAddressText.isEditable = false
+            convertAddress(keyword: searchKey)
+
             // CLGeocoderインスタンスを取得
             let geocoder = CLGeocoder()
             // 入力された文字から位置情報を取得
@@ -78,6 +90,61 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if self.addressInput.isFirstResponder {
             self.addressInput.resignFirstResponder()
         }
+    }
+
+    // API通信のメソッド
+    func convertAddress(keyword: String) {
+        // 日本語住所のキーワードをURLエンコーディング
+        guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            return
+        }
+        // リクエストURLの組み立て
+        guard let requestURL = URL(string:
+                                    "https://jlp.yahooapis.jp/FuriganaService/V1/furigana?appid=dj00aiZpPWs3OFM5WTNCZU5SdSZzPWNvbnN1bWVyc2VjcmV0Jng9MzA-&sentence=\(keywordEncode)") else {
+            return
+        }
+        // インターネット上のXMLを取得し、NSXMLParserに読み込む
+        guard let parser = XMLParser(contentsOf: requestURL as URL) else {
+            return
+        }
+        parser.delegate = self
+        parser.parse()
+        print(requestURL)
+    }
+    var roman: [String] = []
+    //    // XML解析開始時に実行されるメソッド
+    //        func parserDidStartDocument(_ parser: XMLParser) {
+    //            print("XML解析開始しました")
+    //        }
+    //    // 解析中に要素の開始タグがあったときに実行されるメソッド
+    //    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String]) {
+    //        print("開始タグ:" + elementName)
+    //    }
+
+    // 開始タグと終了タグでくくられたデータがあったときに実行されるメソッド
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        //        print("要素:" + string)
+
+    }
+    // 解析中に要素の終了タグがあったときに実行されるメソッド
+    //        func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    //            print("終了タグ:" + elementName)
+    //
+    //        }
+
+    // XML解析終了時に実行されるメソッド
+    //        func parserDidEndDocument(_ parser: XMLParser) {
+    //            print("XML解析終了しました")
+    //        }
+    //
+    //    // 解析中にエラーが発生した時に実行されるメソッド
+    //        func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+    //            print("エラー:" + parseError.localizedDescription)
+    //        }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 
 }

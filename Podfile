@@ -7,5 +7,7 @@ target 'AddressConverter' do
 
   # Pods for AddressConverter
 pod 'FloatingPanel'
+pod 'Alamofire'
+pod 'SwiftyXMLParser'
 
 end
