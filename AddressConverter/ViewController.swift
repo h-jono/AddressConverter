@@ -46,9 +46,10 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
         textField.resignFirstResponder()
 
         if let searchKey = textField.text {
-            //入力された文字をモーダルに表示
-            resultAddressVC.resultAddressText.text = searchKey
+
             resultAddressVC.resultAddressText.isEditable = false
+            addressArrayStr = []
+            addressArrayNum = []
             convertAddress(keyword: searchKey)
 
             // CLGeocoderインスタンスを取得
@@ -88,6 +89,7 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
     // キーボード以外をタップしたらキーボードを閉じる
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if self.addressInput.isFirstResponder {
+            self.resultAddressVC.resultAddressText.text = "Here you will see the address in English."
             self.addressInput.resignFirstResponder()
         }
     }
@@ -103,44 +105,74 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
                                     "https://jlp.yahooapis.jp/FuriganaService/V1/furigana?appid=dj00aiZpPWs3OFM5WTNCZU5SdSZzPWNvbnN1bWVyc2VjcmV0Jng9MzA-&sentence=\(keywordEncode)") else {
             return
         }
-        // インターネット上のXMLを取得し、NSXMLParserに読み込む
-        guard let parser = XMLParser(contentsOf: requestURL as URL) else {
-            return
-        }
-        parser.delegate = self
-        parser.parse()
-        print(requestURL)
-    }
-    var roman: [String] = []
-    //    // XML解析開始時に実行されるメソッド
-    //        func parserDidStartDocument(_ parser: XMLParser) {
-    //            print("XML解析開始しました")
-    //        }
-    //    // 解析中に要素の開始タグがあったときに実行されるメソッド
-    //    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String]) {
-    //        print("開始タグ:" + elementName)
-    //    }
 
-    // 開始タグと終了タグでくくられたデータがあったときに実行されるメソッド
+        let task = URLSession.shared.dataTask(with: requestURL, completionHandler: { data, _, _ in
+            let parser: XMLParser? = XMLParser(data: data!)
+            parser!.delegate = self
+            parser!.parse()
+        })
+        //タスク開始
+        task.resume()
+    }
+
+    var checkElement = String()
+    var addressPiece = ""
+    var addressArrayStr = [String]()
+    var addressArrayNum = [String]()
+
+    //解析_要素の開始時
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String]) {
+        checkElement = elementName
+    }
+
+    //解析_要素内の値取得
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-        //        print("要素:" + string)
+
+        if checkElement == "Roman" {
+            addressPiece = string
+            addressArrayStr.append(addressPiece)
+        }
+
+        if checkElement == "Surface"{
+            addressPiece = string
+
+            if let addressPieceInt = Int(addressPiece) {
+                addressArrayNum.append(String(addressPieceInt))
+            }
+
+            if addressPiece == "-"{
+                addressArrayNum.append(addressPiece)
+            }
+
+        }
 
     }
-    // 解析中に要素の終了タグがあったときに実行されるメソッド
-    //        func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-    //            print("終了タグ:" + elementName)
-    //
-    //        }
+    //解析_終了時
+    func parserDidEndDocument(_ parser: XMLParser) {
+        var resultAddress = ""
+        var trimmedString = ""
+        var trimmedNum = ""
 
-    // XML解析終了時に実行されるメソッド
-    //        func parserDidEndDocument(_ parser: XMLParser) {
-    //            print("XML解析終了しました")
-    //        }
-    //
-    //    // 解析中にエラーが発生した時に実行されるメソッド
-    //        func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-    //            print("エラー:" + parseError.localizedDescription)
-    //        }
+        addressArrayStr = addressArrayStr.filter { $0 != "\n" }
+        addressArrayStr = addressArrayStr.filter { $0 != "\n " }
+        addressArrayStr = addressArrayStr.filter { $0 != "\n  " }
+        addressArrayStr = addressArrayStr.filter { $0 != "\n   " }
+        addressArrayStr = addressArrayStr.filter { $0 != "\n    " }
+        addressArrayStr = addressArrayStr.filter { $0 != "\n     " }
+        addressArrayStr = addressArrayStr.filter { $0 != "\n      " }
+
+        trimmedString = addressArrayStr.reversed().joined(separator: " ")
+        trimmedNum = addressArrayNum.joined(separator: " ")
+
+        resultAddress = trimmedNum + " " + trimmedString
+
+        print(resultAddress)
+        DispatchQueue.main.sync {
+            resultAddressVC.resultAddressText.text = resultAddress
+            print(resultAddress)
+        }
+
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
