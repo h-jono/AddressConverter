@@ -107,7 +107,6 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
             parser!.delegate = self
             parser!.parse()
         })
-        //タスク開始
         task.resume()
     }
 

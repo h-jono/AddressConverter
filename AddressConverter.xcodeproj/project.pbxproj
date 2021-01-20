@@ -16,7 +16,6 @@
 		48ED70B32580ECB700611C0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48ED70B12580ECB700611C0A /* Main.storyboard */; };
 		48ED70B52580ECB700611C0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48ED70B42580ECB700611C0A /* Assets.xcassets */; };
 		48ED70B82580ECB700611C0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48ED70B62580ECB700611C0A /* LaunchScreen.storyboard */; };
-		48ED70C72581178200611C0A /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 48ED70C62581178200611C0A /* .swiftlint.yml */; };
 		FF340A3F297D90018F96469B /* Pods_AddressConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AEF0E10506936384540ACC7 /* Pods_AddressConverter.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,7 +33,6 @@
 		48ED70B42580ECB700611C0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		48ED70B72580ECB700611C0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48ED70B92580ECB700611C0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		48ED70C62581178200611C0A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D68CA0F0000CD3AF6A0D6269 /* Pods-AddressConverter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddressConverter.release.xcconfig"; path = "Target Support Files/Pods-AddressConverter/Pods-AddressConverter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,7 +51,6 @@
 		48ED709F2580ECB600611C0A = {
 			isa = PBXGroup;
 			children = (
-				48ED70C62581178200611C0A /* .swiftlint.yml */,
 				48ED70AA2580ECB600611C0A /* AddressConverter */,
 				48ED70A92580ECB600611C0A /* Products */,
 				87758067371E8492E18F9714 /* Pods */,
@@ -164,7 +161,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48ED70C72581178200611C0A /* .swiftlint.yml in Resources */,
 				48ED70B82580ECB700611C0A /* LaunchScreen.storyboard in Resources */,
 				48BA4DE22585F78D005E6DC6 /* ResultAddressViewController.xib in Resources */,
 				48ED70B52580ECB700611C0A /* Assets.xcassets in Resources */,
