@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48BA4DE12585F78D005E6DC6 /* ResultAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA4DDF2585F78D005E6DC6 /* ResultAddressViewController.swift */; };
+		48BA4DE22585F78D005E6DC6 /* ResultAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48BA4DE02585F78D005E6DC6 /* ResultAddressViewController.xib */; };
+		48BA4DE52585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA4DE42585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift */; };
 		48ED70AC2580ECB700611C0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ED70AB2580ECB700611C0A /* AppDelegate.swift */; };
 		48ED70AE2580ECB700611C0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ED70AD2580ECB700611C0A /* SceneDelegate.swift */; };
 		48ED70B02580ECB700611C0A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ED70AF2580ECB700611C0A /* ViewController.swift */; };
@@ -14,9 +17,15 @@
 		48ED70B52580ECB700611C0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48ED70B42580ECB700611C0A /* Assets.xcassets */; };
 		48ED70B82580ECB700611C0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48ED70B62580ECB700611C0A /* LaunchScreen.storyboard */; };
 		48ED70C72581178200611C0A /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 48ED70C62581178200611C0A /* .swiftlint.yml */; };
+		FF340A3F297D90018F96469B /* Pods_AddressConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AEF0E10506936384540ACC7 /* Pods_AddressConverter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13E28EA014D7E2F4F099B706 /* Pods-AddressConverter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddressConverter.debug.xcconfig"; path = "Target Support Files/Pods-AddressConverter/Pods-AddressConverter.debug.xcconfig"; sourceTree = "<group>"; };
+		1AEF0E10506936384540ACC7 /* Pods_AddressConverter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AddressConverter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		48BA4DDF2585F78D005E6DC6 /* ResultAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAddressViewController.swift; sourceTree = "<group>"; };
+		48BA4DE02585F78D005E6DC6 /* ResultAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultAddressViewController.xib; sourceTree = "<group>"; };
+		48BA4DE42585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFloatingPanelLayout.swift; sourceTree = "<group>"; };
 		48ED70A82580ECB600611C0A /* AddressConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AddressConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48ED70AB2580ECB700611C0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		48ED70AD2580ECB700611C0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +35,7 @@
 		48ED70B72580ECB700611C0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48ED70B92580ECB700611C0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48ED70C62581178200611C0A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		D68CA0F0000CD3AF6A0D6269 /* Pods-AddressConverter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddressConverter.release.xcconfig"; path = "Target Support Files/Pods-AddressConverter/Pods-AddressConverter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF340A3F297D90018F96469B /* Pods_AddressConverter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +56,8 @@
 				48ED70C62581178200611C0A /* .swiftlint.yml */,
 				48ED70AA2580ECB600611C0A /* AddressConverter */,
 				48ED70A92580ECB600611C0A /* Products */,
+				87758067371E8492E18F9714 /* Pods */,
+				FA059CCF19BEBCB733D94323 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,8 +79,28 @@
 				48ED70B42580ECB700611C0A /* Assets.xcassets */,
 				48ED70B62580ECB700611C0A /* LaunchScreen.storyboard */,
 				48ED70B92580ECB700611C0A /* Info.plist */,
+				48BA4DDF2585F78D005E6DC6 /* ResultAddressViewController.swift */,
+				48BA4DE02585F78D005E6DC6 /* ResultAddressViewController.xib */,
+				48BA4DE42585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift */,
 			);
 			path = AddressConverter;
+			sourceTree = "<group>";
+		};
+		87758067371E8492E18F9714 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				13E28EA014D7E2F4F099B706 /* Pods-AddressConverter.debug.xcconfig */,
+				D68CA0F0000CD3AF6A0D6269 /* Pods-AddressConverter.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FA059CCF19BEBCB733D94323 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1AEF0E10506936384540ACC7 /* Pods_AddressConverter.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,10 +110,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 48ED70BC2580ECB700611C0A /* Build configuration list for PBXNativeTarget "AddressConverter" */;
 			buildPhases = (
+				1AE9616D2602ED9C5419F378 /* [CP] Check Pods Manifest.lock */,
 				48ED70A42580ECB600611C0A /* Sources */,
 				48ED70A52580ECB600611C0A /* Frameworks */,
 				48ED70A62580ECB600611C0A /* Resources */,
 				48ED70C02581134200611C0A /* ShellScript */,
+				EFB92DC9C156F6C1971163B8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -131,6 +166,7 @@
 			files = (
 				48ED70C72581178200611C0A /* .swiftlint.yml in Resources */,
 				48ED70B82580ECB700611C0A /* LaunchScreen.storyboard in Resources */,
+				48BA4DE22585F78D005E6DC6 /* ResultAddressViewController.xib in Resources */,
 				48ED70B52580ECB700611C0A /* Assets.xcassets in Resources */,
 				48ED70B32580ECB700611C0A /* Main.storyboard in Resources */,
 			);
@@ -139,6 +175,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1AE9616D2602ED9C5419F378 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AddressConverter-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		48ED70C02581134200611C0A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -156,6 +214,23 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint autocorrect --format\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
+		EFB92DC9C156F6C1971163B8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AddressConverter/Pods-AddressConverter-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AddressConverter/Pods-AddressConverter-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AddressConverter/Pods-AddressConverter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -163,6 +238,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48BA4DE12585F78D005E6DC6 /* ResultAddressViewController.swift in Sources */,
+				48BA4DE52585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift in Sources */,
 				48ED70B02580ECB700611C0A /* ViewController.swift in Sources */,
 				48ED70AC2580ECB700611C0A /* AppDelegate.swift in Sources */,
 				48ED70AE2580ECB700611C0A /* SceneDelegate.swift in Sources */,
@@ -309,10 +386,12 @@
 		};
 		48ED70BD2580ECB700611C0A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13E28EA014D7E2F4F099B706 /* Pods-AddressConverter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RY865YBCC;
 				INFOPLIST_FILE = AddressConverter/Info.plist;
@@ -322,6 +401,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.beats.jomni.AddressConverter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -330,10 +410,12 @@
 		};
 		48ED70BE2580ECB700611C0A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D68CA0F0000CD3AF6A0D6269 /* Pods-AddressConverter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RY865YBCC;
 				INFOPLIST_FILE = AddressConverter/Info.plist;
@@ -343,6 +425,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.beats.jomni.AddressConverter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
