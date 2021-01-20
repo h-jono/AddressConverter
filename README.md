@@ -40,4 +40,4 @@ Webアプリではいくつかツールがありましたが、iOSアプリで�
 - Mapkit、webAPI、外部ライブラリの導入(Floating Panel)、XML解析の解析の練習にはなりました。一方で、全て理解して使いこなせるとは言えないので、改善しながらより学んでいく必要があると思いました。
 
 ### 画面概要:
-https://github.com/h-jono/AddressConverter/issues/1#issue-789550618
+![イメージ-2](https://user-images.githubusercontent.com/64759632/105116090-6315af00-5b0d-11eb-83d1-2ed413090083.gif)
