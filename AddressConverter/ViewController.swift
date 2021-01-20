@@ -20,9 +20,8 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // addressInputのdelegate通知先を設定
+        
         addressInput.delegate = self
-        // addressInputの設定
         addressInput.layer.cornerRadius = addressInput.frame.size.height / 2
         addressInput.backgroundColor = UIColor.white
         addressInput.layer.borderWidth = 0.25
@@ -50,7 +49,7 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
             resultAddressVC.resultAddressText.isEditable = false
             addressArrayStr = []
             addressArrayNum = []
-            convertAddress(keyword: searchKey)
+            requestConvertAddress(keyword: searchKey)
 
             // CLGeocoderインスタンスを取得
             let geocoder = CLGeocoder()
@@ -82,7 +81,6 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
                 }
             })
         }
-        // デフォルト動作を行うのでtrueを返す
         return true
     }
 
@@ -95,17 +93,15 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
     }
 
     // API通信のメソッド
-    func convertAddress(keyword: String) {
-        // 日本語住所のキーワードをURLエンコーディング
+    func requestConvertAddress(keyword: String) {
         guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             return
         }
-        // リクエストURLの組み立て
         guard let requestURL = URL(string:
                                     "https://jlp.yahooapis.jp/FuriganaService/V1/furigana?appid=dj00aiZpPWs3OFM5WTNCZU5SdSZzPWNvbnN1bWVyc2VjcmV0Jng9MzA-&sentence=\(keywordEncode)") else {
             return
         }
-
+        
         let task = URLSession.shared.dataTask(with: requestURL, completionHandler: { data, _, _ in
             let parser: XMLParser? = XMLParser(data: data!)
             parser!.delegate = self
@@ -120,12 +116,12 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
     var addressArrayStr = [String]()
     var addressArrayNum = [String]()
 
-    //解析_要素の開始時
+    //解析要素の開始時
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String]) {
         checkElement = elementName
     }
 
-    //解析_要素内の値取得
+    //解析要素内の値取得
     func parser(_ parser: XMLParser, foundCharacters string: String) {
 
         if checkElement == "Roman" {
@@ -147,12 +143,12 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
         }
 
     }
-    //解析_終了時
+    //解析終了時
     func parserDidEndDocument(_ parser: XMLParser) {
         var resultAddress = ""
         var trimmedString = ""
         var trimmedNum = ""
-
+// TODO:
         addressArrayStr = addressArrayStr.filter { $0 != "\n" }
         addressArrayStr = addressArrayStr.filter { $0 != "\n " }
         addressArrayStr = addressArrayStr.filter { $0 != "\n  " }
@@ -166,10 +162,8 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
 
         resultAddress = trimmedNum + " " + trimmedString
 
-        print(resultAddress)
         DispatchQueue.main.sync {
             resultAddressVC.resultAddressText.text = resultAddress
-            print(resultAddress)
         }
 
     }
