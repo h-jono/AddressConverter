@@ -9,18 +9,18 @@ import UIKit
 import MapKit
 import FloatingPanel
 
-class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelControllerDelegate, XMLParserDelegate {
+final class ViewController: UIViewController, FloatingPanelControllerDelegate {
 
-    var fpc: FloatingPanelController!
+    private var fpc: FloatingPanelController!
 
-    @IBOutlet weak var addressInput: UITextField!
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet private weak var addressInput: UITextField!
+    @IBOutlet private weak var mapView: MKMapView!
 
-    let resultAddressVC = ResultAddressViewController()
+    private let resultAddressVC = ResultAddressViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         addressInput.delegate = self
         addressInput.layer.cornerRadius = addressInput.frame.size.height / 2
         addressInput.backgroundColor = UIColor.white
@@ -28,17 +28,74 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
         addressInput.layer.borderColor = UIColor.black.withAlphaComponent(0.25).cgColor
         addressInput.placeholder = " 日本語住所を入力して下さい"
         addressInput.leftViewMode = .always
-        let imageView = UIImageView()
-        let image = UIImage(systemName: "magnifyingglass")
-        imageView.image = image
-        imageView.tintColor = .gray
-        addressInput.leftView = imageView
+        let searchImageView = UIImageView()
+        let searchImage = UIImage(systemName: "magnifyingglass")
+        searchImageView.image = searchImage
+        searchImageView.tintColor = .gray
+        addressInput.leftView = searchImageView
         // ハーフモーダルの設定
         fpc = FloatingPanelController(delegate: self)
         fpc.layout = CustomFloatingPanelLayout()
         fpc.set(contentViewController: resultAddressVC)
         fpc.addPanel(toParent: self)
     }
+
+    // キーボード以外をタップしたらキーボードを閉じる
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if self.addressInput.isFirstResponder {
+            self.resultAddressVC.resultAddressText.text = "Here you will see the address in English."
+            self.addressInput.resignFirstResponder()
+        }
+    }
+
+    // API通信のメソッド
+    private func requestConvertAddress(keyword: String) {
+        guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            return
+        }
+        guard let requestURL = URL(string:
+                                    "https://jlp.yahooapis.jp/FuriganaService/V1/furigana?appid=dj00aiZpPWs3OFM5WTNCZU5SdSZzPWNvbnN1bWVyc2VjcmV0Jng9MzA-&sentence=\(keywordEncode)") else {
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: requestURL, completionHandler: { data, response, error in
+            
+            // クライアントサイドのエラー
+            if let error = error {
+                print("クライアントエラー: \(error.localizedDescription) \n")
+            }
+            
+            guard let data = data, let response = response as? HTTPURLResponse else {
+                print("no data or no response")
+                return
+            }
+            
+            if response.statusCode == 200 {
+                print(data)
+            } else {
+                // status codeが200以外はサーバーサイドのエラー
+                print("サーバーエラー status code: \(response.statusCode)\n ")
+            }
+            
+            let parser: XMLParser? = XMLParser(data: data)
+            parser!.delegate = self
+            parser!.parse()
+        })
+        task.resume()
+    }
+
+    private var checkElement = String()
+    private var addressPiece = ""
+    private var addressArrayStr = [String]()
+    private var addressArrayNum = [String]()
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+extension ViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // キーボードを閉じる
@@ -83,38 +140,9 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
         }
         return true
     }
+}
 
-    // キーボード以外をタップしたらキーボードを閉じる
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if self.addressInput.isFirstResponder {
-            self.resultAddressVC.resultAddressText.text = "Here you will see the address in English."
-            self.addressInput.resignFirstResponder()
-        }
-    }
-
-    // API通信のメソッド
-    func requestConvertAddress(keyword: String) {
-        guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            return
-        }
-        guard let requestURL = URL(string:
-                                    "https://jlp.yahooapis.jp/FuriganaService/V1/furigana?appid=dj00aiZpPWs3OFM5WTNCZU5SdSZzPWNvbnN1bWVyc2VjcmV0Jng9MzA-&sentence=\(keywordEncode)") else {
-            return
-        }
-        
-        let task = URLSession.shared.dataTask(with: requestURL, completionHandler: { data, _, _ in
-            let parser: XMLParser? = XMLParser(data: data!)
-            parser!.delegate = self
-            parser!.parse()
-        })
-        task.resume()
-    }
-
-    var checkElement = String()
-    var addressPiece = ""
-    var addressArrayStr = [String]()
-    var addressArrayNum = [String]()
-
+extension ViewController: XMLParserDelegate {
     //解析要素の開始時
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String]) {
         checkElement = elementName
@@ -147,7 +175,7 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
         var resultAddress = ""
         var trimmedString = ""
         var trimmedNum = ""
-// TODO:
+        // TODO:
         addressArrayStr = addressArrayStr.filter { $0 != "\n" }
         addressArrayStr = addressArrayStr.filter { $0 != "\n " }
         addressArrayStr = addressArrayStr.filter { $0 != "\n  " }
@@ -164,12 +192,5 @@ class ViewController: UIViewController, UITextFieldDelegate, FloatingPanelContro
         DispatchQueue.main.sync {
             resultAddressVC.resultAddressText.text = resultAddress
         }
-
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }

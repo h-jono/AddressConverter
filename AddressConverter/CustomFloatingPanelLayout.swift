@@ -8,7 +8,7 @@
 import UIKit
 import FloatingPanel
 
-class CustomFloatingPanelLayout: FloatingPanelLayout {
+final class CustomFloatingPanelLayout: FloatingPanelLayout {
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .tip
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
