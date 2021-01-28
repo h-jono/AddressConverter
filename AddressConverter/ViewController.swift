@@ -58,8 +58,26 @@ final class ViewController: UIViewController, FloatingPanelControllerDelegate {
             return
         }
 
-        let task = URLSession.shared.dataTask(with: requestURL, completionHandler: { data, _, _ in
-            let parser: XMLParser? = XMLParser(data: data!)
+        let task = URLSession.shared.dataTask(with: requestURL, completionHandler: { data, response, error in
+            
+            // クライアントサイドのエラー
+            if let error = error {
+                print("クライアントエラー: \(error.localizedDescription) \n")
+            }
+            
+            guard let data = data, let response = response as? HTTPURLResponse else {
+                print("no data or no response")
+                return
+            }
+            
+            if response.statusCode == 200 {
+                print(data)
+            } else {
+                // status codeが200以外はサーバーサイドのエラー
+                print("サーバーエラー status code: \(response.statusCode)\n ")
+            }
+            
+            let parser: XMLParser? = XMLParser(data: data)
             parser!.delegate = self
             parser!.parse()
         })

@@ -13,7 +13,7 @@ final class ResultAddressViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    @IBOutlet private weak var resultAddressText: UITextView!
+    @IBOutlet weak var resultAddressText: UITextView!
     
     // テキスト長押しでコピー
     @IBAction
