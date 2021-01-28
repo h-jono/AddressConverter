@@ -11,12 +11,12 @@ import FloatingPanel
 
 final class ViewController: UIViewController, FloatingPanelControllerDelegate {
 
-    var fpc: FloatingPanelController!
+    private var fpc: FloatingPanelController!
 
-    @IBOutlet weak var addressInput: UITextField!
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet private weak var addressInput: UITextField!
+    @IBOutlet private weak var mapView: MKMapView!
 
-    let resultAddressVC = ResultAddressViewController()
+    private let resultAddressVC = ResultAddressViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +28,11 @@ final class ViewController: UIViewController, FloatingPanelControllerDelegate {
         addressInput.layer.borderColor = UIColor.black.withAlphaComponent(0.25).cgColor
         addressInput.placeholder = " 日本語住所を入力して下さい"
         addressInput.leftViewMode = .always
-        let imageView = UIImageView()
-        let image = UIImage(systemName: "magnifyingglass")
-        imageView.image = image
-        imageView.tintColor = .gray
-        addressInput.leftView = imageView
+        let searchImageView = UIImageView()
+        let searchImage = UIImage(systemName: "magnifyingglass")
+        searchImageView.image = searchImage
+        searchImageView.tintColor = .gray
+        addressInput.leftView = searchImageView
         // ハーフモーダルの設定
         fpc = FloatingPanelController(delegate: self)
         fpc.layout = CustomFloatingPanelLayout()
@@ -49,7 +49,7 @@ final class ViewController: UIViewController, FloatingPanelControllerDelegate {
     }
 
     // API通信のメソッド
-    func requestConvertAddress(keyword: String) {
+    private func requestConvertAddress(keyword: String) {
         guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             return
         }
@@ -66,10 +66,10 @@ final class ViewController: UIViewController, FloatingPanelControllerDelegate {
         task.resume()
     }
 
-    var checkElement = String()
-    var addressPiece = ""
-    var addressArrayStr = [String]()
-    var addressArrayNum = [String]()
+    private var checkElement = String()
+    private var addressPiece = ""
+    private var addressArrayStr = [String]()
+    private var addressArrayNum = [String]()
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
