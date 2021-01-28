@@ -3,6 +3,7 @@
 import Foundation
 import os.log
 
+// Must be a variable to use `hook` property in testing
 var log = {
     return Logger()
 }()
@@ -68,7 +69,7 @@ struct Logger {
 
         hook?(log, level)
 
-        os_log("%@", log: osLog, type: level.osLogType, log)
+        os_log("%{public}@", log: osLog, type: level.osLogType, log)
     }
 
     private func getPrettyFunction(_ function: String, _ file: String) -> String {
@@ -85,7 +86,7 @@ struct Logger {
         #endif
     }
 
-    func info(_ log: Any, _ arguments: Any..., tag: String = "",  function: String = #function, file: String  = #file, line: UInt = #line) {
+    func info(_ log: Any, _ arguments: Any..., tag: String = "", function: String = #function, file: String  = #file, line: UInt = #line) {
         self.log(.info, log, arguments, tag: tag, function: getPrettyFunction(function, file), line: line)
     }
 

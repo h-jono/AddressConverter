@@ -52,7 +52,7 @@ class PresentationController: UIPresentationController {
              view is added unnecessarily.
              */
             fpc.presentedViewController == nil
-            else { return }
+        else { return }
 
         /*
          * Layout the views managed by `FloatingPanelController` here for the
@@ -72,7 +72,7 @@ class PresentationController: UIPresentationController {
         guard
             let containerView = self.containerView,
             let fpc = presentedViewController as? FloatingPanelController
-            else { fatalError() }
+        else { fatalError() }
 
         containerView.addSubview(fpc.view)
         fpc.view.frame = containerView.bounds
@@ -121,4 +121,3 @@ class ModalDismissTransition: NSObject, UIViewControllerAnimatedTransitioning {
         }
     }
 }
-

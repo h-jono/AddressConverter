@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ResultAddressViewController: UIViewController {
+final class ResultAddressViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
