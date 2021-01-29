@@ -20,8 +20,7 @@ final class ResultAddressViewController: UIViewController {
     private func longPressAddress(_ sender: UILongPressGestureRecognizer) {
         
         if sender.state == .began {
-            guard let gesture = sender as? UIGestureRecognizer else { return }
-            guard let textView = gesture.view as? UITextView else { return }
+            guard let textView = sender.view as? UITextView else { return }
             UIPasteboard.general.string = textView.text
             alert(title: "コピーしました", message: "")
         }
