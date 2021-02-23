@@ -9,18 +9,18 @@ import UIKit
 import MapKit
 import FloatingPanel
 
-final class ViewController: UIViewController, FloatingPanelControllerDelegate {
-
+final class MapViewController: UIViewController, FloatingPanelControllerDelegate {
+    
     private var fpc: FloatingPanelController!
-
+    
     @IBOutlet private weak var addressInput: UITextField!
     @IBOutlet private weak var mapView: MKMapView!
-
+    
     private let resultAddressVC = ResultAddressViewController()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         addressInput.delegate = self
         addressInput.layer.cornerRadius = addressInput.frame.size.height / 2
         addressInput.backgroundColor = UIColor.white
@@ -39,7 +39,7 @@ final class ViewController: UIViewController, FloatingPanelControllerDelegate {
         fpc.set(contentViewController: resultAddressVC)
         fpc.addPanel(toParent: self)
     }
-
+    
     // キーボード以外をタップしたらキーボードを閉じる
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if self.addressInput.isFirstResponder {
@@ -47,7 +47,7 @@ final class ViewController: UIViewController, FloatingPanelControllerDelegate {
             self.addressInput.resignFirstResponder()
         }
     }
-
+    
     // API通信のメソッド
     private func requestConvertAddress(keyword: String) {
         guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
@@ -57,7 +57,7 @@ final class ViewController: UIViewController, FloatingPanelControllerDelegate {
                                     "https://jlp.yahooapis.jp/FuriganaService/V1/furigana?appid=dj00aiZpPWs3OFM5WTNCZU5SdSZzPWNvbnN1bWVyc2VjcmV0Jng9MzA-&sentence=\(keywordEncode)") else {
             return
         }
-
+        
         let task = URLSession.shared.dataTask(with: requestURL, completionHandler: { data, response, error in
             
             // クライアントサイドのエラー
@@ -83,31 +83,31 @@ final class ViewController: UIViewController, FloatingPanelControllerDelegate {
         })
         task.resume()
     }
-
+    
     private var checkElement = String()
     private var addressPiece = ""
     private var addressArrayStr = [String]()
     private var addressArrayNum = [String]()
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 }
 
-extension ViewController: UITextFieldDelegate {
-
+extension MapViewController: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // キーボードを閉じる
         textField.resignFirstResponder()
-
+        
         if let searchKey = textField.text {
-
+            
             resultAddressVC.resultAddressText.isEditable = false
             addressArrayStr = []
             addressArrayNum = []
             requestConvertAddress(keyword: searchKey)
-
+            
             // CLGeocoderインスタンスを取得
             let geocoder = CLGeocoder()
             // 入力された文字から位置情報を取得
@@ -142,33 +142,33 @@ extension ViewController: UITextFieldDelegate {
     }
 }
 
-extension ViewController: XMLParserDelegate {
+extension MapViewController: XMLParserDelegate {
     //解析要素の開始時
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String]) {
         checkElement = elementName
     }
-
+    
     //解析要素内の値取得
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-
+        
         if checkElement == "Roman" {
             addressPiece = string
             addressArrayStr.append(addressPiece)
         }
-
+        
         if checkElement == "Surface"{
             addressPiece = string
-
+            
             if let addressPieceInt = Int(addressPiece) {
                 addressArrayNum.append(String(addressPieceInt))
             }
-
+            
             if addressPiece == "-"{
                 addressArrayNum.append(addressPiece)
             }
-
+            
         }
-
+        
     }
     //解析終了時
     func parserDidEndDocument(_ parser: XMLParser) {
@@ -183,12 +183,12 @@ extension ViewController: XMLParserDelegate {
         addressArrayStr = addressArrayStr.filter { $0 != "\n    " }
         addressArrayStr = addressArrayStr.filter { $0 != "\n     " }
         addressArrayStr = addressArrayStr.filter { $0 != "\n      " }
-
+        
         trimmedString = addressArrayStr.reversed().joined(separator: " ")
         trimmedNum = addressArrayNum.joined(separator: " ")
-
+        
         resultAddress = trimmedNum + " " + trimmedString
-
+        
         DispatchQueue.main.sync {
             resultAddressVC.resultAddressText.text = resultAddress
         }
