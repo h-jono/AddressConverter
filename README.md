@@ -1,7 +1,7 @@
 # AddressConverter
 
 ### 対象OS: 
-iOS 14.2~
+iOS 13.0~
 
 ### 開発環境/言語: 
 Xcode/Swift
@@ -16,6 +16,7 @@ Xcode/Swift
 
 ### 使用ライブラリ:
 [FloatingPanel](https://github.com/SCENEE/FloatingPanel)
+[IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager)
 
 ### コンセプト:
 海外と荷物をやり取りする事が多く、日本語住所を手軽にローマ字変換したい
