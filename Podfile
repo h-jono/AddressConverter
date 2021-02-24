@@ -8,5 +8,6 @@ target 'AddressConverter' do
   # Pods for AddressConverter
 pod 'FloatingPanel'
 pod 'SwiftLint'
+pod 'R.swift'
 
 end

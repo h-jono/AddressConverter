@@ -1,20 +1,28 @@
 PODS:
   - FloatingPanel (2.2.0)
+  - R.swift (5.3.1):
+    - R.swift.Library (~> 5.3.0)
+  - R.swift.Library (5.3.0)
   - SwiftLint (0.42.0)
 
 DEPENDENCIES:
   - FloatingPanel
+  - R.swift
   - SwiftLint
 
 SPEC REPOS:
   trunk:
     - FloatingPanel
+    - R.swift
+    - R.swift.Library
     - SwiftLint
 
 SPEC CHECKSUMS:
   FloatingPanel: 54b478292da5340317ce78afcaca88fab6f3b57e
+  R.swift: 56ec7e3aef34b9eee47a659e42462db2c1cc5ac3
+  R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
   SwiftLint: 4fa9579c63416865179bc416f0a92d55f009600d
 
-PODFILE CHECKSUM: e616528b19cc9ee0ef5f44e0301abb206fa51474
+PODFILE CHECKSUM: e70d298c7c778d901b5da500f0af24322d7c1d13
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1
