@@ -1,6 +1,0 @@
-framework module Pods_AddressConverter {
-  umbrella header "Pods-AddressConverter-umbrella.h"
-
-  export *
-  module * { export * }
-}
