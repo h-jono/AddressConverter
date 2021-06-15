@@ -50,6 +50,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4804D0752678D7AD0002135C /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				48ED70AB2580ECB700611C0A /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		48ED709F2580ECB600611C0A = {
 			isa = PBXGroup;
 			children = (
@@ -71,8 +79,8 @@
 		48ED70AA2580ECB600611C0A /* AddressConverter */ = {
 			isa = PBXGroup;
 			children = (
+				4804D0752678D7AD0002135C /* Application */,
 				487CEA8C25E538ED00F854A7 /* R.generated.swift */,
-				48ED70AB2580ECB700611C0A /* AppDelegate.swift */,
 				48ED70AF2580ECB700611C0A /* MapViewController.swift */,
 				48ED70B12580ECB700611C0A /* Main.storyboard */,
 				48BA4DDF2585F78D005E6DC6 /* ResultAddressViewController.swift */,
