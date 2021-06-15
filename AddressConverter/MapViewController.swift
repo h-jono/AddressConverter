@@ -40,14 +40,6 @@ final class MapViewController: UIViewController, FloatingPanelControllerDelegate
         fpc.addPanel(toParent: self)
     }
     
-    // キーボード以外をタップしたらキーボードを閉じる
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if self.addressInput.isFirstResponder {
-            self.resultAddressVC.resultAddressText.text = "Here you will see the address in English."
-            self.addressInput.resignFirstResponder()
-        }
-    }
-    
     // API通信のメソッド
     private func requestConvertAddress(keyword: String) {
         guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
@@ -96,6 +88,14 @@ final class MapViewController: UIViewController, FloatingPanelControllerDelegate
 }
 
 extension MapViewController: UITextFieldDelegate {
+    
+    // キーボード以外をタップしたらキーボードを閉じる
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if self.addressInput.isFirstResponder {
+            self.resultAddressVC.resultAddressText.text = "Here you will see the address in English."
+            self.addressInput.resignFirstResponder()
+        }
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // キーボードを閉じる
