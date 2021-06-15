@@ -13,7 +13,6 @@
 		48BA4DE22585F78D005E6DC6 /* ResultAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48BA4DE02585F78D005E6DC6 /* ResultAddressViewController.xib */; };
 		48BA4DE52585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA4DE42585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift */; };
 		48ED70AC2580ECB700611C0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ED70AB2580ECB700611C0A /* AppDelegate.swift */; };
-		48ED70AE2580ECB700611C0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ED70AD2580ECB700611C0A /* SceneDelegate.swift */; };
 		48ED70B02580ECB700611C0A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ED70AF2580ECB700611C0A /* MapViewController.swift */; };
 		48ED70B32580ECB700611C0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48ED70B12580ECB700611C0A /* Main.storyboard */; };
 		48ED70B52580ECB700611C0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48ED70B42580ECB700611C0A /* Assets.xcassets */; };
@@ -30,7 +29,6 @@
 		48BA4DE42585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFloatingPanelLayout.swift; sourceTree = "<group>"; };
 		48ED70A82580ECB600611C0A /* AddressConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AddressConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48ED70AB2580ECB700611C0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		48ED70AD2580ECB700611C0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		48ED70AF2580ECB700611C0A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		48ED70B22580ECB700611C0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		48ED70B42580ECB700611C0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 			children = (
 				487CEA8C25E538ED00F854A7 /* R.generated.swift */,
 				48ED70AB2580ECB700611C0A /* AppDelegate.swift */,
-				48ED70AD2580ECB700611C0A /* SceneDelegate.swift */,
 				48ED70AF2580ECB700611C0A /* MapViewController.swift */,
 				48ED70B12580ECB700611C0A /* Main.storyboard */,
 				48BA4DDF2585F78D005E6DC6 /* ResultAddressViewController.swift */,
@@ -252,7 +249,6 @@
 				48BA4DE52585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift in Sources */,
 				48ED70B02580ECB700611C0A /* MapViewController.swift in Sources */,
 				48ED70AC2580ECB700611C0A /* AppDelegate.swift in Sources */,
-				48ED70AE2580ECB700611C0A /* SceneDelegate.swift in Sources */,
 				487CEA8D25E538ED00F854A7 /* R.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
