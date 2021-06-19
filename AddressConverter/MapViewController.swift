@@ -40,14 +40,6 @@ final class MapViewController: UIViewController, FloatingPanelControllerDelegate
         fpc.addPanel(toParent: self)
     }
     
-    // キーボード以外をタップしたらキーボードを閉じる
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if self.addressInput.isFirstResponder {
-            self.resultAddressVC.resultAddressText.text = "Here you will see the address in English."
-            self.addressInput.resignFirstResponder()
-        }
-    }
-    
     // API通信のメソッド
     private func requestConvertAddress(keyword: String) {
         guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
@@ -97,47 +89,44 @@ final class MapViewController: UIViewController, FloatingPanelControllerDelegate
 
 extension MapViewController: UITextFieldDelegate {
     
+    // キーボード以外をタップしたらキーボードを閉じる
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if self.addressInput.isFirstResponder {
+            self.resultAddressVC.resultAddressText.text = "Here you will see the address in English."
+            self.addressInput.resignFirstResponder()
+        }
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // キーボードを閉じる
         textField.resignFirstResponder()
+        guard let searchKey = textField.text else { return false }
         
-        if let searchKey = textField.text {
+        resultAddressVC.resultAddressText.isEditable = false
+        addressArrayStr = []
+        addressArrayNum = []
+        requestConvertAddress(keyword: searchKey)
+        
+        let geocoder = CLGeocoder()
+        // 入力された文字から位置情報を取得
+        geocoder.geocodeAddressString(searchKey, completionHandler: { placemarks, _ in
+            guard let unwrapPlacemarks = placemarks else { return }
+            // 1件目の情報を取り出す
+            guard let firstPlacemark = unwrapPlacemarks.first else { return }
+            // 位置情報を取り出す
+            guard let location = firstPlacemark.location else { return }
+            // 位置情報から緯度経度をtargetCoordinateに取り出す
+            let targetCoordinate = location.coordinate
             
-            resultAddressVC.resultAddressText.isEditable = false
-            addressArrayStr = []
-            addressArrayNum = []
-            requestConvertAddress(keyword: searchKey)
-            
-            // CLGeocoderインスタンスを取得
-            let geocoder = CLGeocoder()
-            // 入力された文字から位置情報を取得
-            geocoder.geocodeAddressString(searchKey, completionHandler: {
-                placemarks, _ in
-                // 位置情報が存在する場合は、unwrapPlacemarksに取り出す
-                if let unwrapPlacemarks = placemarks {
-                    // 1件目の情報を取り出す
-                    if let firstPlacemark = unwrapPlacemarks.first {
-                        // 位置情報を取り出す
-                        if let location = firstPlacemark.location {
-                            // 位置情報から緯度経度をtargetCoordinateに取り出す
-                            let targetCoordinate = location.coordinate
-                            // 緯度経度をデバックエリアに表示
-                            print(targetCoordinate)
-                            // MKPointAnnotationインスタンスを取得し、ピンを生成
-                            let pin = MKPointAnnotation()
-                            // ピンの置く場所に緯度経度を設定
-                            pin.coordinate = targetCoordinate
-                            // ピンのタイトルを設定
-                            pin.title = searchKey
-                            // ピンを地図に置く
-                            self.mapView.addAnnotation(pin)
-                            // 緯度経度を中心にして、半径500mの範囲を表示
-                            self.mapView.region = MKCoordinateRegion(center: targetCoordinate, latitudinalMeters: 500.0, longitudinalMeters: 500.0)
-                        }
-                    }
-                }
-            })
-        }
+            let pin = MKPointAnnotation()
+            // ピンを置く場所に緯度経度を設定
+            pin.coordinate = targetCoordinate
+            pin.title = searchKey
+            // ピンを地図に置く
+            self.mapView.addAnnotation(pin)
+            // 緯度経度を中心にして、半径500mの範囲を表示
+            self.mapView.region = MKCoordinateRegion(center: targetCoordinate, latitudinalMeters: 500.0, longitudinalMeters: 500.0)
+        })
         return true
     }
 }
@@ -159,16 +148,13 @@ extension MapViewController: XMLParserDelegate {
         if checkElement == "Surface"{
             addressPiece = string
             
-            if let addressPieceInt = Int(addressPiece) {
-                addressArrayNum.append(String(addressPieceInt))
-            }
+            guard let addressPieceInt = Int(addressPiece) else { return }
+            addressArrayNum.append(String(addressPieceInt))
             
             if addressPiece == "-"{
                 addressArrayNum.append(addressPiece)
             }
-            
         }
-        
     }
     //解析終了時
     func parserDidEndDocument(_ parser: XMLParser) {
