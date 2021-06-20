@@ -136,6 +136,7 @@ extension MapViewController: XMLParserDelegate {
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         
         if checkElement == "Roman" {
+            guard !string.contains("\n") else { return }
             addressPiece = string
             addressArrayStr.append(addressPiece)
         }
@@ -156,14 +157,6 @@ extension MapViewController: XMLParserDelegate {
         var resultAddress = ""
         var trimmedString = ""
         var trimmedNum = ""
-        // TODO:
-        addressArrayStr = addressArrayStr.filter { $0 != "\n" }
-        addressArrayStr = addressArrayStr.filter { $0 != "\n " }
-        addressArrayStr = addressArrayStr.filter { $0 != "\n  " }
-        addressArrayStr = addressArrayStr.filter { $0 != "\n   " }
-        addressArrayStr = addressArrayStr.filter { $0 != "\n    " }
-        addressArrayStr = addressArrayStr.filter { $0 != "\n     " }
-        addressArrayStr = addressArrayStr.filter { $0 != "\n      " }
         
         trimmedString = addressArrayStr.reversed().joined(separator: " ")
         trimmedNum = addressArrayNum.joined(separator: " ")
