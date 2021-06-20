@@ -135,22 +135,25 @@ extension MapViewController: XMLParserDelegate {
     //解析要素内の値取得
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         
-        if checkElement == "Roman" {
+        switch checkElement {
+        case "Roman":
             guard !string.contains("\n") else { return }
             addressPiece = string
             addressArrayStr.append(addressPiece)
-        }
-        
-        if checkElement == "Surface" {
+        case "Surface":
             addressPiece = string
             
-            guard let addressPieceInt = Int(addressPiece) else { return }
-            addressArrayNum.append(String(addressPieceInt))
+            if let addressPieceInt = Int(addressPiece) {
+                addressArrayNum.append(String(addressPieceInt))
+            }
             
             if addressPiece == "-" {
                 addressArrayNum.append(addressPiece)
             }
+        default:
+            break
         }
+        
     }
     //解析終了時
     func parserDidEndDocument(_ parser: XMLParser) {
