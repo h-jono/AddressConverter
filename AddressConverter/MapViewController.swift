@@ -40,7 +40,6 @@ final class MapViewController: UIViewController, FloatingPanelControllerDelegate
         fpc.addPanel(toParent: self)
     }
     
-    // API通信のメソッド
     private func requestConvertAddress(keyword: String) {
         guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             return
@@ -52,7 +51,6 @@ final class MapViewController: UIViewController, FloatingPanelControllerDelegate
         
         let task = URLSession.shared.dataTask(with: requestURL, completionHandler: { data, response, error in
             
-            // クライアントサイドのエラー
             if let error = error {
                 print("クライアントエラー: \(error.localizedDescription) \n")
             }
@@ -65,7 +63,6 @@ final class MapViewController: UIViewController, FloatingPanelControllerDelegate
             if response.statusCode == 200 {
                 print(data)
             } else {
-                // status codeが200以外はサーバーサイドのエラー
                 print("サーバーエラー status code: \(response.statusCode)\n ")
             }
             
@@ -83,7 +80,6 @@ final class MapViewController: UIViewController, FloatingPanelControllerDelegate
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 
@@ -117,7 +113,6 @@ extension MapViewController: UITextFieldDelegate {
             guard let location = firstPlacemark.location else { return }
             // 位置情報から緯度経度をtargetCoordinateに取り出す
             let targetCoordinate = location.coordinate
-            
             let pin = MKPointAnnotation()
             // ピンを置く場所に緯度経度を設定
             pin.coordinate = targetCoordinate
@@ -145,13 +140,13 @@ extension MapViewController: XMLParserDelegate {
             addressArrayStr.append(addressPiece)
         }
         
-        if checkElement == "Surface"{
+        if checkElement == "Surface" {
             addressPiece = string
             
             guard let addressPieceInt = Int(addressPiece) else { return }
             addressArrayNum.append(String(addressPieceInt))
             
-            if addressPiece == "-"{
+            if addressPiece == "-" {
                 addressArrayNum.append(addressPiece)
             }
         }
