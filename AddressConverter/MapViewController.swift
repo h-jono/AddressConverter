@@ -28,6 +28,8 @@ final class MapViewController: UIViewController, FloatingPanelControllerDelegate
         addressInput.layer.borderColor = UIColor.black.withAlphaComponent(0.25).cgColor
         addressInput.placeholder = " 日本語住所を入力して下さい"
         addressInput.leftViewMode = .always
+        
+        
         let searchImageView = UIImageView()
         let searchImage = UIImage(systemName: "magnifyingglass")
         searchImageView.image = searchImage
@@ -40,69 +42,11 @@ final class MapViewController: UIViewController, FloatingPanelControllerDelegate
         fpc.addPanel(toParent: self)
     }
     
-    private func requestConvertAddress(keyword: String) {
-        guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            return
-        }
-        guard let requestURL = URL(string:
-                                    "https://jlp.yahooapis.jp/FuriganaService/V1/furigana?appid=dj00aiZpPWs3OFM5WTNCZU5SdSZzPWNvbnN1bWVyc2VjcmV0Jng9MzA-&sentence=\(keywordEncode)") else {
-            return
-        }
-        
-        let task = URLSession.shared.dataTask(with: requestURL, completionHandler: { data, response, error in
-            
-            if let error = error {
-                print("クライアントエラー: \(error.localizedDescription) \n")
-            }
-            
-            guard let data = data, let response = response as? HTTPURLResponse else {
-                print("no data or no response")
-                return
-            }
-            
-            if response.statusCode == 200 {
-                print(data)
-            } else {
-                print("サーバーエラー status code: \(response.statusCode)\n ")
-            }
-            
-            let parser: XMLParser? = XMLParser(data: data)
-            parser!.delegate = self
-            parser!.parse()
-        })
-        task.resume()
-    }
-    
-    private var checkElement = String()
-    private var addressPiece = ""
-    private var addressArrayStr = [String]()
-    private var addressArrayNum = [String]()
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-}
-
-extension MapViewController: UITextFieldDelegate {
     
-    // キーボード以外をタップしたらキーボードを閉じる
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if self.addressInput.isFirstResponder {
-            self.resultAddressVC.resultAddressText.text = "Here you will see the address in English."
-            self.addressInput.resignFirstResponder()
-        }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // キーボードを閉じる
-        textField.resignFirstResponder()
-        guard let searchKey = textField.text else { return false }
-        
-        resultAddressVC.resultAddressText.isEditable = false
-        addressArrayStr = []
-        addressArrayNum = []
-        requestConvertAddress(keyword: searchKey)
-        
+    private func pinMap(from searchKey: String) {
         let geocoder = CLGeocoder()
         // 入力された文字から位置情報を取得
         geocoder.geocodeAddressString(searchKey, completionHandler: { placemarks, _ in
@@ -122,45 +66,34 @@ extension MapViewController: UITextFieldDelegate {
             // 緯度経度を中心にして、半径500mの範囲を表示
             self.mapView.region = MKCoordinateRegion(center: targetCoordinate, latitudinalMeters: 500.0, longitudinalMeters: 500.0)
         })
-        return true
+    }
+    private func updateConvertedAddress(from searchKey: String) {
+        self.resultAddressVC.resultAddressText.text = ""
+        AddressAPI().get(keyword: searchKey)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.resultAddressVC.resultAddressText.text = AddressModel.resultAddressText
+        }
     }
 }
 
-extension MapViewController: XMLParserDelegate {
-    //解析要素の開始時
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String]) {
-        checkElement = elementName
+extension MapViewController: UITextFieldDelegate {
+    
+    // キーボード以外をタップしたらキーボードを閉じる
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if self.addressInput.isFirstResponder {
+            self.resultAddressVC.resultAddressText.text = "Here you will see the address in English."
+            self.addressInput.resignFirstResponder()
+        }
     }
     
-    //解析要素内の値取得
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        resultAddressVC.resultAddressText.isEditable = false
+        guard let searchKey = textField.text else { return false }
         
-        switch checkElement {
-        case "Roman":
-            guard !string.contains("\n") else { return }
-            addressPiece = string
-            addressArrayStr.append(addressPiece)
-        case "Surface":
-            addressPiece = string
-            
-            if let addressPieceInt = Int(addressPiece) {
-                addressArrayNum.append(String(addressPieceInt))
-            }
-            
-            if addressPiece == "-" {
-                addressArrayNum.append(addressPiece)
-            }
-        default:
-            break
-        }
-        
-    }
-    //解析終了時
-    func parserDidEndDocument(_ parser: XMLParser) {
-        
-        DispatchQueue.main.sync {
-            resultAddressVC.resultAddressText.text = addressArrayNum.joined(separator: " ") + addressArrayStr.reversed().joined(separator: " ")
-        }
-        
+        updateConvertedAddress(from: searchKey)
+        pinMap(from: searchKey)
+        return true
     }
 }
