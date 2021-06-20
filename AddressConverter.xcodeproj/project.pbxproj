@@ -68,6 +68,25 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		48288CFB267F51C400A3201D /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				48ED70AF2580ECB700611C0A /* MapViewController.swift */,
+				48ED70B12580ECB700611C0A /* MapView.storyboard */,
+				48BA4DDF2585F78D005E6DC6 /* ResultAddressViewController.swift */,
+				48BA4DE02585F78D005E6DC6 /* ResultAddressView.xib */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		48288CFC267F522E00A3201D /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				48BA4DE42585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
 		48ED709F2580ECB600611C0A = {
 			isa = PBXGroup;
 			children = (
@@ -89,14 +108,11 @@
 		48ED70AA2580ECB600611C0A /* AddressConverter */ = {
 			isa = PBXGroup;
 			children = (
-				48288CF8267F2CC700A3201D /* Model */,
-				4804D0752678D7AD0002135C /* Application */,
 				487CEA8C25E538ED00F854A7 /* R.generated.swift */,
-				48ED70AF2580ECB700611C0A /* MapViewController.swift */,
-				48ED70B12580ECB700611C0A /* MapView.storyboard */,
-				48BA4DDF2585F78D005E6DC6 /* ResultAddressViewController.swift */,
-				48BA4DE02585F78D005E6DC6 /* ResultAddressView.xib */,
-				48BA4DE42585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift */,
+				4804D0752678D7AD0002135C /* Application */,
+				48288CF8267F2CC700A3201D /* Model */,
+				48288CFB267F51C400A3201D /* ViewController */,
+				48288CFC267F522E00A3201D /* Library */,
 				48ED70B42580ECB700611C0A /* Assets.xcassets */,
 				48ED70B62580ECB700611C0A /* LaunchScreen.storyboard */,
 				48ED70B92580ECB700611C0A /* Info.plist */,
