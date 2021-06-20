@@ -157,17 +157,10 @@ extension MapViewController: XMLParserDelegate {
     }
     //解析終了時
     func parserDidEndDocument(_ parser: XMLParser) {
-        var resultAddress = ""
-        var trimmedString = ""
-        var trimmedNum = ""
-        
-        trimmedString = addressArrayStr.reversed().joined(separator: " ")
-        trimmedNum = addressArrayNum.joined(separator: " ")
-        
-        resultAddress = trimmedNum + " " + trimmedString
         
         DispatchQueue.main.sync {
-            resultAddressVC.resultAddressText.text = resultAddress
+            resultAddressVC.resultAddressText.text = addressArrayNum.joined(separator: " ") + addressArrayStr.reversed().joined(separator: " ")
         }
+        
     }
 }
