@@ -15,7 +15,6 @@ final class ResultAddressViewController: UIViewController {
     
     @IBOutlet weak var resultAddressText: UITextView!
     
-    // テキスト長押しでコピー
     @IBAction private func longPressAddress(_ sender: UILongPressGestureRecognizer) {
         
         if sender.state == .began {

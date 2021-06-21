@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48288CFA267F2CDB00A3201D /* AddressAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48288CF9267F2CDB00A3201D /* AddressAPI.swift */; };
 		484579B825E4CD2A00EFB477 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 484579B725E4CD2A00EFB477 /* IQKeyboardManagerSwift */; };
 		487CEA8D25E538ED00F854A7 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487CEA8C25E538ED00F854A7 /* R.generated.swift */; };
 		48BA4DE12585F78D005E6DC6 /* ResultAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA4DDF2585F78D005E6DC6 /* ResultAddressViewController.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		13E28EA014D7E2F4F099B706 /* Pods-AddressConverter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddressConverter.debug.xcconfig"; path = "Target Support Files/Pods-AddressConverter/Pods-AddressConverter.debug.xcconfig"; sourceTree = "<group>"; };
 		1AEF0E10506936384540ACC7 /* Pods_AddressConverter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AddressConverter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		48288CF9267F2CDB00A3201D /* AddressAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressAPI.swift; sourceTree = "<group>"; };
 		487CEA8C25E538ED00F854A7 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		48BA4DDF2585F78D005E6DC6 /* ResultAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAddressViewController.swift; sourceTree = "<group>"; };
 		48BA4DE02585F78D005E6DC6 /* ResultAddressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultAddressView.xib; sourceTree = "<group>"; };
@@ -58,6 +60,14 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
+		48288CF8267F2CC700A3201D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				48288CF9267F2CDB00A3201D /* AddressAPI.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		48ED709F2580ECB600611C0A = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +89,7 @@
 		48ED70AA2580ECB600611C0A /* AddressConverter */ = {
 			isa = PBXGroup;
 			children = (
+				48288CF8267F2CC700A3201D /* Model */,
 				4804D0752678D7AD0002135C /* Application */,
 				487CEA8C25E538ED00F854A7 /* R.generated.swift */,
 				48ED70AF2580ECB700611C0A /* MapViewController.swift */,
@@ -258,6 +269,7 @@
 				48ED70B02580ECB700611C0A /* MapViewController.swift in Sources */,
 				48ED70AC2580ECB700611C0A /* AppDelegate.swift in Sources */,
 				487CEA8D25E538ED00F854A7 /* R.generated.swift in Sources */,
+				48288CFA267F2CDB00A3201D /* AddressAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
