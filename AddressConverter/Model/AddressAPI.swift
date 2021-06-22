@@ -9,7 +9,7 @@ import Foundation
 
 struct AddressModel {
     static var element: String = ""
-    static var addressPiece: String = ""
+    static var romanStr: String = ""
     static var addressArrayStr: [String] = []
     static var addressArrayNum: [String] = []
     static var resultAddressText: String = ""
@@ -17,7 +17,7 @@ struct AddressModel {
 
 final class AddressAPI: NSObject {
     
-    func get(keyword: String) {
+    func getXMLData(keyword: String) {
         
         guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
         
@@ -41,9 +41,9 @@ final class AddressAPI: NSObject {
                 print("サーバーエラー status code: \(response.statusCode)\n ")
             }
             
-            let parser: XMLParser? = XMLParser.init(data: data)
-            parser!.delegate = self
-            parser!.parse()
+            let parser = XMLParser(data: data)
+            parser.delegate = self
+            parser.parse()
         })
         task.resume()
     }
@@ -62,17 +62,16 @@ extension AddressAPI: XMLParserDelegate {
         case "Roman":
             guard !string.contains("\n") else { return }
             
-            AddressModel.addressPiece = string.capitalized
-            AddressModel.addressArrayStr.append(AddressModel.addressPiece)
+            AddressModel.romanStr = string.capitalized
+            AddressModel.addressArrayStr.append(AddressModel.romanStr)
         case "Surface":
-            AddressModel.addressPiece = string
+            AddressModel.romanStr = string
             
-            if let addressPieceInt = Int(AddressModel.addressPiece) {
+            if let addressPieceInt = Int(AddressModel.romanStr) {
                 AddressModel.addressArrayNum.append(String(addressPieceInt))
             }
-            
-            if AddressModel.addressPiece == "-" {
-                AddressModel.addressArrayNum.append(AddressModel.addressPiece)
+            if AddressModel.romanStr == "-" {
+                AddressModel.addressArrayNum.append(AddressModel.romanStr)
             }
         default:
             break
@@ -81,7 +80,6 @@ extension AddressAPI: XMLParserDelegate {
     }
     //解析終了時
     func parserDidEndDocument(_ parser: XMLParser) {
-        
         AddressModel.resultAddressText = AddressModel.addressArrayNum.joined(separator: " ") + " " + AddressModel.addressArrayStr.reversed().joined(separator: " ")
         AddressModel.addressArrayStr = []
         AddressModel.addressArrayNum = []
