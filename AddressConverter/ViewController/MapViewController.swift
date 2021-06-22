@@ -69,7 +69,7 @@ final class MapViewController: UIViewController, FloatingPanelControllerDelegate
     }
     private func updateConvertedAddress(from searchKey: String) {
         self.resultAddressVC.resultAddressText.text = ""
-        AddressAPI().get(keyword: searchKey)
+        AddressAPI().getXMLData(keyword: searchKey)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.resultAddressVC.resultAddressText.text = AddressModel.resultAddressText

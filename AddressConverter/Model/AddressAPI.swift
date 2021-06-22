@@ -17,7 +17,7 @@ struct AddressModel {
 
 final class AddressAPI: NSObject {
     
-    func get(keyword: String) {
+    func getXMLData(keyword: String) {
         
         guard let keywordEncode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
         
