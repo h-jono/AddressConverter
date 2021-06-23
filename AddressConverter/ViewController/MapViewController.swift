@@ -61,7 +61,7 @@ final class MapViewController: UIViewController, FloatingPanelControllerDelegate
             // ピンを置く場所に緯度経度を設定
             pin.coordinate = targetCoordinate
             pin.title = searchKey
-            // ピンを地図に置く
+            
             self.mapView.addAnnotation(pin)
             // 緯度経度を中心にして、半径500mの範囲を表示
             self.mapView.region = MKCoordinateRegion(center: targetCoordinate, latitudinalMeters: 500.0, longitudinalMeters: 500.0)
