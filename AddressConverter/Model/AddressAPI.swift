@@ -59,12 +59,12 @@ extension AddressAPI: XMLParserDelegate {
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         
         switch AddressModel.element {
-        case "Roman":
+        case R.string.settings.roman():
             guard !string.contains("\n") else { return }
             
             AddressModel.romanStr = string.capitalized
             AddressModel.addressArrayStr.append(AddressModel.romanStr)
-        case "Surface":
+        case R.string.settings.surface():
             AddressModel.romanStr = string
             
             if let addressPieceInt = Int(AddressModel.romanStr) {

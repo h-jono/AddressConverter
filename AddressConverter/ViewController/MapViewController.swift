@@ -26,7 +26,7 @@ final class MapViewController: UIViewController, FloatingPanelControllerDelegate
         addressInput.backgroundColor = UIColor.white
         addressInput.layer.borderWidth = 0.25
         addressInput.layer.borderColor = UIColor.black.withAlphaComponent(0.25).cgColor
-        addressInput.placeholder = " 日本語住所を入力して下さい"
+        addressInput.placeholder = R.string.settings.inputJapaneseAddress()
         addressInput.leftViewMode = .always
         
         
@@ -82,7 +82,7 @@ extension MapViewController: UITextFieldDelegate {
     // キーボード以外をタップしたらキーボードを閉じる
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if self.addressInput.isFirstResponder {
-            self.resultAddressVC.resultAddressText.text = "Here you will see the address in English."
+            self.resultAddressVC.resultAddressText.text = R.string.settings.hereYouWillSeeTheAddressInEnglish()
             self.addressInput.resignFirstResponder()
         }
     }

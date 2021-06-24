@@ -10,6 +10,7 @@
 		48288CFA267F2CDB00A3201D /* AddressAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48288CF9267F2CDB00A3201D /* AddressAPI.swift */; };
 		484579B825E4CD2A00EFB477 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 484579B725E4CD2A00EFB477 /* IQKeyboardManagerSwift */; };
 		487CEA8D25E538ED00F854A7 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487CEA8C25E538ED00F854A7 /* R.generated.swift */; };
+		48AC2E1C26848DC700840658 /* settings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48AC2E1B26848DC700840658 /* settings.strings */; };
 		48BA4DE12585F78D005E6DC6 /* ResultAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA4DDF2585F78D005E6DC6 /* ResultAddressViewController.swift */; };
 		48BA4DE22585F78D005E6DC6 /* ResultAddressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48BA4DE02585F78D005E6DC6 /* ResultAddressView.xib */; };
 		48BA4DE52585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BA4DE42585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift */; };
@@ -26,6 +27,7 @@
 		1AEF0E10506936384540ACC7 /* Pods_AddressConverter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AddressConverter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48288CF9267F2CDB00A3201D /* AddressAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressAPI.swift; sourceTree = "<group>"; };
 		487CEA8C25E538ED00F854A7 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		48AC2E1B26848DC700840658 /* settings.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = settings.strings; sourceTree = "<group>"; };
 		48BA4DDF2585F78D005E6DC6 /* ResultAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAddressViewController.swift; sourceTree = "<group>"; };
 		48BA4DE02585F78D005E6DC6 /* ResultAddressView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultAddressView.xib; sourceTree = "<group>"; };
 		48BA4DE42585F9B5005E6DC6 /* CustomFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFloatingPanelLayout.swift; sourceTree = "<group>"; };
@@ -87,9 +89,19 @@
 			path = Library;
 			sourceTree = "<group>";
 		};
+		48AC2E1A26848DA200840658 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				48ED70B42580ECB700611C0A /* Assets.xcassets */,
+				48AC2E1B26848DC700840658 /* settings.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		48ED709F2580ECB600611C0A = {
 			isa = PBXGroup;
 			children = (
+				487CEA8C25E538ED00F854A7 /* R.generated.swift */,
 				48ED70AA2580ECB600611C0A /* AddressConverter */,
 				48ED70A92580ECB600611C0A /* Products */,
 				87758067371E8492E18F9714 /* Pods */,
@@ -108,12 +120,11 @@
 		48ED70AA2580ECB600611C0A /* AddressConverter */ = {
 			isa = PBXGroup;
 			children = (
-				487CEA8C25E538ED00F854A7 /* R.generated.swift */,
+				48AC2E1A26848DA200840658 /* Resources */,
 				4804D0752678D7AD0002135C /* Application */,
 				48288CF8267F2CC700A3201D /* Model */,
 				48288CFB267F51C400A3201D /* ViewController */,
 				48288CFC267F522E00A3201D /* Library */,
-				48ED70B42580ECB700611C0A /* Assets.xcassets */,
 				48ED70B62580ECB700611C0A /* LaunchScreen.storyboard */,
 				48ED70B92580ECB700611C0A /* Info.plist */,
 			);
@@ -209,6 +220,7 @@
 				48BA4DE22585F78D005E6DC6 /* ResultAddressView.xib in Resources */,
 				48ED70B52580ECB700611C0A /* Assets.xcassets in Resources */,
 				48ED70B32580ECB700611C0A /* MapView.storyboard in Resources */,
+				48AC2E1C26848DC700840658 /* settings.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

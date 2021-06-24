@@ -20,13 +20,13 @@ final class ResultAddressViewController: UIViewController {
         if sender.state == .began {
             guard let textView = sender.view as? UITextView else { return }
             UIPasteboard.general.string = textView.text
-            alert(title: "コピーしました", message: "")
+            alert(title: R.string.settings.copied(), message: "")
         }
     }
     
     private func alert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: R.string.settings.ok(), style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
