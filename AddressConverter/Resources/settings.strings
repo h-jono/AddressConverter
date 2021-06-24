@@ -1,0 +1,15 @@
+/* 
+  settings.strings
+  AddressConverter
+
+  Created by 城野 on 2021/06/24.
+  
+*/
+"roman" = "Roman";
+"surface" = "Surface";
+
+"inputJapaneseAddress" = " 日本語住所を入力して下さい";
+"hereYouWillSeeTheAddressInEnglish" = "Here you will see the address in English.";
+
+"copied" = "コピーしました";
+"ok" = "OK";
